@@ -10,6 +10,7 @@ import store, { checkAuthorization } from './store/auth'
 import AuthPage from './pages/auth'
 import DashboardPage from './pages/dashboard'
 import Harta from './pages/harta'
+import HartaEdit from './pages/harta/edit'
 
 const PrivateRoute = ({ children, ...rest }) => {
   const { token } = useSnapshot(store)
@@ -70,6 +71,9 @@ const App = () => (
       <PrivateRoute path="/dashboard/:path?">
         <DashboardLayout>
           <Switch>
+            <Route path="/dashboard/harta/:harta_id" exact>
+              <HartaEdit />
+            </Route>
             <Route path="/dashboard/harta" exact>
               <Harta />
             </Route>

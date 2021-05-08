@@ -37,9 +37,9 @@ const columns = [
 ]
 
 const TableRow = ({ highlighted, onToggle, ...restProps }) => {
-  // const history = useHistory()
+  const history = useHistory()
   // const rowRef = useRef()
-  // const row = restProps.tableRow.row
+  const row = restProps.tableRow.row
 
   // useDoubleClick({
   //   onSingleClick: (e) => onToggle(),
@@ -51,6 +51,7 @@ const TableRow = ({ highlighted, onToggle, ...restProps }) => {
   return (
     <Table.Row
       {...restProps}
+      onClick={() => history.push(`harta/${row.id}`)}
       style={{
         cursor: 'pointer'
       }}
@@ -80,49 +81,17 @@ const HartaTable = () => {
   // const rows = response.data.data
   // const total = response.data.meta.total
 
-  const rows = [
-    {
-      id: 'ID',
-      no: '#',
-      PegAUID: 'AUID',
-      PegKod: 'Code',
-      PegNoRumah: 'No Rumah',
-      PegJalan: 'Name Jalan',
-      PegTempat: 'Tempat',
-      PegPoskod: 'Poskod'
-    },
-    {
-      id: 'ID',
-      no: '#',
-      PegAUID: 'AUID',
-      PegKod: 'Code',
-      PegNoRumah: 'No Rumah',
-      PegJalan: 'Name Jalan',
-      PegTempat: 'Tempat',
-      PegPoskod: 'Poskod'
-    },
-    {
-      id: 'ID',
-      no: '#',
-      PegAUID: 'AUID',
-      PegKod: 'Code',
-      PegNoRumah: 'No Rumah',
-      PegJalan: 'Name Jalan',
-      PegTempat: 'Tempat',
-      PegPoskod: 'Poskod'
-    },
-    {
-      id: 'ID',
-      no: '#',
-      PegAUID: 'AUID',
-      PegKod: 'Code',
-      PegNoRumah: 'No Rumah',
-      PegJalan: 'Name Jalan',
-      PegTempat: 'Tempat',
-      PegPoskod: 'Poskod'
-    }
-  ]
-  const total = 4
+  const rows = Array.from(Array(15)).map((_, index) => ({
+    id: index,
+    no: '#',
+    PegAUID: 'AUID',
+    PegKod: 'Code',
+    PegNoRumah: 'No Rumah',
+    PegJalan: 'Name Jalan',
+    PegTempat: 'Tempat',
+    PegPoskod: 'Poskod'
+  }))
+  const total = rows.length
 
   return (
     <Paper>
@@ -143,9 +112,9 @@ const HartaTable = () => {
           selectByRowClick
           highlightRow
           showSelectionColumn={false}
-          // rowComponent={(props) => {
-          //   return <TableRow {...props} />
-          // }}
+          rowComponent={(props) => {
+            return <TableRow {...props} />
+          }}
         />
         <TableGroupRow />
         <Toolbar />

@@ -14,7 +14,7 @@ import Link from '@material-ui/core/Link'
 
 import Sidebar from './Sidebar'
 
-const drawerWidth = 240
+export const drawerWidth = 240
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex'
