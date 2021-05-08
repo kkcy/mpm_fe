@@ -6,13 +6,23 @@ import { DateTime } from 'luxon'
 import useDoubleClick from 'use-double-click'
 
 import { Paper, CircularProgress, Chip } from '@material-ui/core'
-import { SelectionState, PagingState, CustomPaging } from '@devexpress/dx-react-grid'
+import {
+  SelectionState,
+  PagingState,
+  CustomPaging,
+  GroupingState,
+  IntegratedGrouping
+} from '@devexpress/dx-react-grid'
 import {
   Grid,
   Table,
   TableHeaderRow,
+  TableGroupRow,
+  TableSelection,
   PagingPanel,
-  TableSelection
+  GroupingPanel,
+  DragDropProvider,
+  Toolbar
 } from '@devexpress/dx-react-grid-material-ui'
 
 const columns = [
@@ -56,6 +66,7 @@ const HartaTable = () => {
   const [currentPage, { set }] = useCounter(0)
   const [pageSize] = useState(15)
   const [selection, setSelection] = useState([])
+  const [grouping, setGrouping] = useState([])
 
   // const url = `https://127.0.0.1:3333/api/v1/content?page=${currentPage + 1}&limit=${pageSize}`
   // const { data: response, error } = useSWR(url)
@@ -116,12 +127,15 @@ const HartaTable = () => {
   return (
     <Paper>
       <Grid rows={rows} columns={columns}>
+        <DragDropProvider />
+        <GroupingState grouping={grouping} onGroupingChange={setGrouping} />
         <PagingState
           defaultCurrentPage={currentPage}
           onCurrentPageChange={(val) => set(val)}
           defaultPageSize={pageSize}
         />
         <CustomPaging totalCount={total} />
+        <IntegratedGrouping />
         <SelectionState selection={selection} onSelectionChange={setSelection} />
         <Table rowComponent={TableRow} cellComponent={TableCell} />
         <TableHeaderRow />
@@ -133,6 +147,9 @@ const HartaTable = () => {
           //   return <TableRow {...props} />
           // }}
         />
+        <TableGroupRow />
+        <Toolbar />
+        <GroupingPanel showGroupingControls />
         <PagingPanel />
       </Grid>
     </Paper>
