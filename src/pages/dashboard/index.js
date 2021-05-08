@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { DateTime } from 'luxon'
 import { useSnapshot } from 'valtio'
+import { Link } from 'react-router-dom';
 
 import { Box, Typography } from '@material-ui/core'
 import List from '@material-ui/core/List'
@@ -26,11 +27,11 @@ const DashboardPage = () => {
       <Box>
         <Typography variant="h6">You may...</Typography>
         <List>
-          <ListItem button>
+          <ListItem button component={Link} to="/dashboard/harta">
             <ListItemText>Create a new harta</ListItemText>
           </ListItem>
           <Divider />
-          <ListItem button>
+          <ListItem button component={Link} to="/dashboard/carian">
             <ListItemText>Look for owners with Carian</ListItemText>
           </ListItem>
         </List>
