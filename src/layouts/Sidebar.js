@@ -5,7 +5,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 
 const navigation = [
-  { name: 'Maklumat Harta', path: '/dashboard/harta' },
+  { name: 'Pegangan', path: '/dashboard/pegangan' },
   { name: 'Carian', path: '/dashboard/carian' }
 ]
 

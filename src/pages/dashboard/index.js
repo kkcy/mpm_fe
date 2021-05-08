@@ -27,8 +27,8 @@ const DashboardPage = () => {
       <Box>
         <Typography variant="h6">You may...</Typography>
         <List>
-          <ListItem button component={Link} to="/dashboard/harta">
-            <ListItemText>Create a new harta</ListItemText>
+          <ListItem button component={Link} to="/dashboard/pegangan">
+            <ListItemText>Create a new Pegangan</ListItemText>
           </ListItem>
           <Divider />
           <ListItem button component={Link} to="/dashboard/carian">

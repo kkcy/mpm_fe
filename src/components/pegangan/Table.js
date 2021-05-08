@@ -43,7 +43,7 @@ const TableRow = ({ highlighted, onToggle, ...restProps }) => {
 
   // useDoubleClick({
   //   onSingleClick: (e) => onToggle(),
-  //   onDoubleClick: (e) => history.push(`harta/${row.id}`),
+  //   onDoubleClick: (e) => history.push(`pegangan/${row.id}`),
   //   ref: rowRef,
   //   latency: 250
   // })
@@ -51,7 +51,7 @@ const TableRow = ({ highlighted, onToggle, ...restProps }) => {
   return (
     <Table.Row
       {...restProps}
-      onClick={() => history.push(`harta/${row.id}`)}
+      onClick={() => history.push(`pegangan/${row.id}`)}
       style={{
         cursor: 'pointer'
       }}
@@ -63,7 +63,7 @@ const TableCell = (props) => {
   return <Table.Cell {...props} />
 }
 
-const HartaTable = () => {
+const PeganganTable = () => {
   const [currentPage, { set }] = useCounter(0)
   const [pageSize] = useState(15)
   const [selection, setSelection] = useState([])
@@ -82,7 +82,7 @@ const HartaTable = () => {
   // const total = response.data.meta.total
 
   const rows = Array.from(Array(15)).map((_, index) => ({
-    id: index,
+    id: index + 1,
     no: '#',
     PegAUID: 'AUID',
     PegKod: 'Code',
@@ -125,4 +125,4 @@ const HartaTable = () => {
   )
 }
 
-export default HartaTable
+export default PeganganTable

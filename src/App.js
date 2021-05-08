@@ -9,13 +9,14 @@ import store, { checkAuthorization } from './store/auth'
 
 import AuthPage from './pages/auth'
 import DashboardPage from './pages/dashboard'
-import Harta from './pages/harta'
-import HartaEdit from './pages/harta/edit'
+import PeganganPage from './pages/pegangan'
+import PeganganEditPage from './pages/pegangan/edit'
+import CarianPage from './pages/carian'
 
 const PrivateRoute = ({ children, ...rest }) => {
   const { token } = useSnapshot(store)
   console.log(token)
-  
+
   return (
     <Route
       {...rest}
@@ -71,11 +72,14 @@ const App = () => (
       <PrivateRoute path="/dashboard/:path?">
         <DashboardLayout>
           <Switch>
-            <Route path="/dashboard/harta/:harta_id" exact>
-              <HartaEdit />
+            <Route path="/dashboard/pegangan/:pegangan_id" exact>
+              <PeganganEditPage />
             </Route>
-            <Route path="/dashboard/harta" exact>
-              <Harta />
+            <Route path="/dashboard/pegangan" exact>
+              <PeganganPage />
+            </Route>
+            <Route path="/dashboard/carian" exact>
+              <CarianPage />
             </Route>
             <Route path="/dashboard" exact>
               <DashboardPage />

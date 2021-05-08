@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const HartaForm = () => {
+const PeganganForm = () => {
   const history = useHistory()
   const classes = useStyles()
   const methods = useForm()
@@ -110,4 +110,4 @@ const HartaForm = () => {
   )
 }
 
-export default HartaForm
+export default PeganganForm
