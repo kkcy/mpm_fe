@@ -1,25 +1,94 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Route, Switch, Redirect } from 'react-router-dom'
+import { useSnapshot } from 'valtio'
 
-function App() {
+import AuthLayout from './layouts/AuthLayout'
+import DashboardLayout from './layouts/DashboardLayout'
+
+import store, { checkAuthorization } from './store/auth'
+
+import AuthPage from './pages/auth'
+import DashboardPage from './pages/dashboard'
+
+const PrivateRoute = ({ children, ...rest }) => {
+  const { token } = useSnapshot(store)
+  console.log(token)
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Route
+      {...rest}
+      render={({ location }) => {
+        return token != null ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/',
+              state: { from: location }
+            }}
+          />
+        )
+      }}
+    />
+  )
 }
 
-export default App;
+const PublicRoute = ({ children, ...rest }) => {
+  const { token } = useSnapshot(store)
+
+  return (
+    <Route
+      {...rest}
+      render={({ location }) => {
+        return token == null ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/dashboard',
+              state: { from: location }
+            }}
+          />
+        )
+      }}
+    />
+  )
+}
+
+const App = () => (
+  <>
+    <Switch>
+      {/* admin route */}
+      <PrivateRoute path="/admin/:path?">
+        <DashboardLayout>
+          <Switch></Switch>
+        </DashboardLayout>
+      </PrivateRoute>
+
+      {/* dashboard route */}
+      <PrivateRoute path="/dashboard/:path?">
+        <DashboardLayout>
+          <Switch>
+            <Route path="/dashboard" exact>
+              <DashboardPage />
+            </Route>
+          </Switch>
+        </DashboardLayout>
+      </PrivateRoute>
+
+      <PublicRoute path="/">
+        <AuthLayout>
+          <AuthPage />
+        </AuthLayout>
+      </PublicRoute>
+    </Switch>
+  </>
+)
+
+new Promise(() => {
+  checkAuthorization()
+})
+  .then(() => App())
+  .catch((error) => console.error(error))
+
+export default App
