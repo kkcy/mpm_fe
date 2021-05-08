@@ -17,7 +17,7 @@ const DashboardPage = () => {
   return (
     <>
       <Box display="flex" justifyContent="space-between">
-        <Typography variant="h3">Welcome Back {profile.username}</Typography>
+        <Typography variant="h3">Welcome Back {profile?.username}</Typography>
         <Typography variant="h4">{today.toJSDate().toDateString()}</Typography>
       </Box>
 
