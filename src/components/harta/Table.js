@@ -1,13 +1,22 @@
-import React, { useState, useMemo } from 'react'
-import { Paper, CircularProgress, Chip } from '@material-ui/core'
-import { PagingState, CustomPaging } from '@devexpress/dx-react-grid'
-import { Grid, Table, TableHeaderRow, PagingPanel } from '@devexpress/dx-react-grid-material-ui'
+import React, { useState, useMemo, useRef, Fragment } from 'react'
 import { useCounter } from 'react-use'
 import useSWR from 'swr'
 import { useHistory, useParams } from 'react-router-dom'
 import { DateTime } from 'luxon'
+import useDoubleClick from 'use-double-click'
+
+import { Paper, CircularProgress, Chip } from '@material-ui/core'
+import { SelectionState, PagingState, CustomPaging } from '@devexpress/dx-react-grid'
+import {
+  Grid,
+  Table,
+  TableHeaderRow,
+  PagingPanel,
+  TableSelection
+} from '@devexpress/dx-react-grid-material-ui'
 
 const columns = [
+  { name: 'id', title: 'ID' },
   { name: 'no', title: '#' },
   { name: 'PegAUID', title: 'AUID' },
   { name: 'PegKod', title: 'Code' },
@@ -17,13 +26,21 @@ const columns = [
   { name: 'PegPoskod', title: 'Poskod' }
 ]
 
-const TableRow = ({ row, ...restProps }) => {
-  const history = useHistory()
+const TableRow = ({ highlighted, onToggle, ...restProps }) => {
+  // const history = useHistory()
+  // const rowRef = useRef()
+  // const row = restProps.tableRow.row
+
+  // useDoubleClick({
+  //   onSingleClick: (e) => onToggle(),
+  //   onDoubleClick: (e) => history.push(`harta/${row.id}`),
+  //   ref: rowRef,
+  //   latency: 250
+  // })
 
   return (
     <Table.Row
       {...restProps}
-      // onClick={() => history.push(`/devices/${row.id}`)}
       style={{
         cursor: 'pointer'
       }}
@@ -38,6 +55,7 @@ const TableCell = (props) => {
 const HartaTable = () => {
   const [currentPage, { set }] = useCounter(0)
   const [pageSize] = useState(15)
+  const [selection, setSelection] = useState([])
 
   // const url = `https://127.0.0.1:3333/api/v1/content?page=${currentPage + 1}&limit=${pageSize}`
   // const { data: response, error } = useSWR(url)
@@ -53,6 +71,7 @@ const HartaTable = () => {
 
   const rows = [
     {
+      id: 'ID',
       no: '#',
       PegAUID: 'AUID',
       PegKod: 'Code',
@@ -62,6 +81,7 @@ const HartaTable = () => {
       PegPoskod: 'Poskod'
     },
     {
+      id: 'ID',
       no: '#',
       PegAUID: 'AUID',
       PegKod: 'Code',
@@ -71,6 +91,7 @@ const HartaTable = () => {
       PegPoskod: 'Poskod'
     },
     {
+      id: 'ID',
       no: '#',
       PegAUID: 'AUID',
       PegKod: 'Code',
@@ -80,6 +101,7 @@ const HartaTable = () => {
       PegPoskod: 'Poskod'
     },
     {
+      id: 'ID',
       no: '#',
       PegAUID: 'AUID',
       PegKod: 'Code',
@@ -100,8 +122,17 @@ const HartaTable = () => {
           defaultPageSize={pageSize}
         />
         <CustomPaging totalCount={total} />
+        <SelectionState selection={selection} onSelectionChange={setSelection} />
         <Table rowComponent={TableRow} cellComponent={TableCell} />
         <TableHeaderRow />
+        <TableSelection
+          selectByRowClick
+          highlightRow
+          showSelectionColumn={false}
+          // rowComponent={(props) => {
+          //   return <TableRow {...props} />
+          // }}
+        />
         <PagingPanel />
       </Grid>
     </Paper>
