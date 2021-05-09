@@ -10,6 +10,7 @@ import store, { checkAuthorization } from './store/auth'
 import AuthPage from './pages/auth'
 import DashboardPage from './pages/dashboard'
 import PeganganPage from './pages/pegangan'
+import PeganganNewPage from './pages/pegangan/new'
 import PeganganEditPage from './pages/pegangan/edit'
 import CarianPage from './pages/carian'
 import CarianEditPage from './pages/carian/edit'
@@ -73,6 +74,9 @@ const App = () => (
       <PrivateRoute path="/dashboard/:path?">
         <DashboardLayout>
           <Switch>
+            <Route path="/dashboard/pegangan/new" exact>
+              <PeganganNewPage />
+            </Route>
             <Route path="/dashboard/pegangan/:pegangan_id" exact>
               <PeganganEditPage />
             </Route>
