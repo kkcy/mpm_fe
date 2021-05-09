@@ -26,15 +26,16 @@ import {
 } from '@devexpress/dx-react-grid-material-ui'
 
 const columns = [
-  { name: 'id', title: 'ID' },
   { name: 'no', title: '#' },
-  { name: 'PegAUID', title: 'AUID' },
-  { name: 'PegKod', title: 'Code' },
-  { name: 'PegNoRumah', title: 'No Rumah' },
-  { name: 'PegJalan', title: 'Name Jalan' },
-  { name: 'PegTempat', title: 'Tempat' },
-  { name: 'PegPoskod', title: 'Poskod' }
+  { name: 'pegId', title: 'ID' },
+  { name: 'pegAuid', title: 'AUID' },
+  { name: 'pegKod', title: 'Code' },
+  { name: 'pegNoRumah', title: 'No Rumah' },
+  { name: 'pegJalan', title: 'Name Jalan' },
+  { name: 'pegTempat', title: 'Tempat' },
+  { name: 'pegPoskod', title: 'Poskod' }
 ]
+const endpoint = 'https://127.0.0.1:5001/api'
 
 const TableRow = ({ highlighted, onToggle, ...restProps }) => {
   const history = useHistory()
@@ -63,35 +64,20 @@ const TableCell = (props) => {
   return <Table.Cell {...props} />
 }
 
-const PeganganTable = () => {
-  const [currentPage, { set }] = useCounter(0)
-  const [pageSize] = useState(15)
+const PeganganTable = ({ currentPage, pageSize, total, set }) => {
   const [selection, setSelection] = useState([])
   const [grouping, setGrouping] = useState([])
 
-  // const url = `https://127.0.0.1:3333/api/v1/content?page=${currentPage + 1}&limit=${pageSize}`
-  // const { data: response, error } = useSWR(url)
+  const url = `${endpoint}/hartapegangan?page=${currentPage + 1}&limit=${pageSize}`
+  const { data: response, error } = useSWR(url)
 
-  // if (error) {
-  //   console.log(error)
-  //   return <h1>Something went wrong!</h1>
-  // }
-  // if (!response) return <CircularProgress />
+  if (error) {
+    console.log(error)
+    return <h1>Something went wrong!</h1>
+  }
+  if (!response) return <CircularProgress />
 
-  // const rows = response.data.data
-  // const total = response.data.meta.total
-
-  const rows = Array.from(Array(15)).map((_, index) => ({
-    id: index + 1,
-    no: '#',
-    PegAUID: 'AUID',
-    PegKod: 'Code',
-    PegNoRumah: 'No Rumah',
-    PegJalan: 'Name Jalan',
-    PegTempat: 'Tempat',
-    PegPoskod: 'Poskod'
-  }))
-  const total = rows.length
+  const rows = response.list.map((item, index) => ({ no: index + 1, ...item }))
 
   return (
     <Paper>
@@ -125,4 +111,34 @@ const PeganganTable = () => {
   )
 }
 
-export default PeganganTable
+const TableWrapper = () => {
+  const [currentPage, { set }] = useCounter(0)
+  const [pageSize] = useState(15)
+
+  // retrieve once to get total
+  const url = `${endpoint}/hartapegangan?page=1&limit=${pageSize}`
+  const { data: response, error } = useSWR(url)
+
+  if (error) {
+    console.log(error)
+    return <h1>Something went wrong!</h1>
+  }
+  if (!response) return <h1>Loading</h1>
+
+  const total = response.total
+
+  return (
+    <>
+      {/* current page */}
+      <PeganganTable currentPage={currentPage} pageSize={pageSize} set={set} total={total} />
+      {/* cache for next page */}
+      <div style={{ display: 'none' }}>
+        {currentPage + 1 <= total / pageSize && (
+          <PeganganTable currentPage={currentPage + 1} pageSize={pageSize} />
+        )}
+      </div>
+    </>
+  )
+}
+
+export default TableWrapper
