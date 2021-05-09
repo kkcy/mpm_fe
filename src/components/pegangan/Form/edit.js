@@ -26,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
     width: `calc(100% - ${drawerWidth}px)`
   },
   drawerPaper: {
+    borderTop: 'none',
+    background: 'rgb(243, 243, 252)',
     padding: '8px 16px',
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`

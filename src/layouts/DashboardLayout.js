@@ -17,25 +17,33 @@ import Sidebar from './Sidebar'
 export const drawerWidth = 240
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex'
+    display: 'flex',
+    minHeight: '100vh'
   },
   appBar: {
-    background: 'white',
+    background: 'rgb(243, 243, 252)',
     color: 'black',
-    borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-    zIndex: theme.zIndex.drawer + 1
+    // borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+    zIndex: theme.zIndex.drawer + 1,
+    width: `calc(100% - ${drawerWidth}px)`
   },
   drawer: {
+    background: theme.palette.primary.main,
+    color: 'white',
     width: drawerWidth,
     flexShrink: 0
   },
   drawerPaper: {
+    background: theme.palette.primary.main,
+    color: 'white',
+    borderRight: 'none',
     width: drawerWidth
   },
   drawerContainer: {
     overflow: 'auto'
   },
   content: {
+    background: 'rgb(225, 225, 238)',
     flexGrow: 1,
     padding: theme.spacing(3)
   }
@@ -50,11 +58,8 @@ const DashboardLayout = ({ children }) => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" elevation={0} className={classes.appBar}>
+      <AppBar position="fixed" elevation={0} color="primary" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" noWrap style={{ marginRight: 12 }}>
-            MPM
-          </Typography>
           <Route>
             <Breadcrumbs aria-label="breadcrumb">
               {breadcrumbs.map(({ match, breadcrumb }) => (
@@ -73,7 +78,12 @@ const DashboardLayout = ({ children }) => {
           paper: classes.drawerPaper
         }}
       >
-        <Toolbar />
+        <Toolbar>
+          <img src="/logo.png" alt="logo" style={{ height: 45, width: 'auto' }} />
+          <Typography variant="h6" style={{ marginLeft: 16 }}>
+            MPM
+          </Typography>
+        </Toolbar>
         <div className={classes.drawerContainer}>
           <Sidebar />
         </div>
