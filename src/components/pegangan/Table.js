@@ -7,19 +7,26 @@ import useDoubleClick from 'use-double-click'
 
 import { Paper, CircularProgress, Chip } from '@material-ui/core'
 import {
+  SearchState,
   SelectionState,
   PagingState,
   CustomPaging,
   GroupingState,
+  FilteringState,
+  IntegratedFiltering,
   IntegratedGrouping
 } from '@devexpress/dx-react-grid'
 import {
   Grid,
   Table,
   TableHeaderRow,
+  TableFilterRow,
   TableGroupRow,
+  TableColumnResizing,
+  TableColumnReordering,
   TableSelection,
   PagingPanel,
+  SearchPanel,
   GroupingPanel,
   DragDropProvider,
   Toolbar
@@ -29,11 +36,10 @@ const columns = [
   { name: 'no', title: '#' },
   { name: 'pegId', title: 'ID' },
   { name: 'pegAuid', title: 'AUID' },
-  { name: 'pegKod', title: 'Code' },
+  { name: 'pegNoAkaun', title: 'No Akaun' },
   { name: 'pegNoRumah', title: 'No Rumah' },
-  { name: 'pegJalan', title: 'Name Jalan' },
-  { name: 'pegTempat', title: 'Tempat' },
-  { name: 'pegPoskod', title: 'Poskod' }
+  { name: 'pegRjkFail', title: 'Rujukan Fail' },
+  { name: 'pegRjkMmk', title: 'Rujukan MMK' }
 ]
 const endpoint = 'https://127.0.0.1:5001/api'
 
@@ -67,6 +73,15 @@ const TableCell = (props) => {
 const PeganganTable = ({ currentPage, pageSize, total, set }) => {
   const [selection, setSelection] = useState([])
   const [grouping, setGrouping] = useState([])
+  const [defaultColumnWidths] = useState([
+    { columnName: 'no', width: 180 },
+    { columnName: 'pegId', width: 180 },
+    { columnName: 'pegAuid', width: 180 },
+    { columnName: 'pegNoAkaun', width: 180 },
+    { columnName: 'pegNoRumah', width: 180 },
+    { columnName: 'pegRjkFail', width: 180 },
+    { columnName: 'pegRjkMmk', width: 180 }
+  ])
 
   const url = `${endpoint}/hartapegangan?page=${currentPage + 1}&limit=${pageSize}`
   const { data: response, error } = useSWR(url)
@@ -78,6 +93,7 @@ const PeganganTable = ({ currentPage, pageSize, total, set }) => {
   if (!response) return <CircularProgress />
 
   const rows = response.list.map((item, index) => ({ no: index + 1, ...item }))
+  console.log(rows)
 
   return (
     <Paper>
@@ -89,11 +105,27 @@ const PeganganTable = ({ currentPage, pageSize, total, set }) => {
           onCurrentPageChange={(val) => set(val)}
           defaultPageSize={pageSize}
         />
+        <SearchState />
         <CustomPaging totalCount={total} />
         <IntegratedGrouping />
         <SelectionState selection={selection} onSelectionChange={setSelection} />
+        <FilteringState defaultFilters={[]} />
+        <IntegratedFiltering />
         <Table rowComponent={TableRow} cellComponent={TableCell} />
+        {/* <TableColumnResizing defaultColumnWidths={defaultColumnWidths} /> */}
+        <TableColumnReordering
+          defaultOrder={[
+            'no',
+            'pegId',
+            'pegAuid',
+            'pegNoAkaun',
+            'pegNoRumah',
+            'pegRjkFail',
+            'pegRjkMmk'
+          ]}
+        />
         <TableHeaderRow />
+        <TableFilterRow />
         <TableSelection
           selectByRowClick
           highlightRow
@@ -106,6 +138,7 @@ const PeganganTable = ({ currentPage, pageSize, total, set }) => {
         <Toolbar />
         <GroupingPanel showGroupingControls />
         <PagingPanel />
+        <SearchPanel />
       </Grid>
     </Paper>
   )

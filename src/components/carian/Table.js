@@ -7,19 +7,25 @@ import useDoubleClick from 'use-double-click'
 
 import { Paper, CircularProgress, Chip } from '@material-ui/core'
 import {
+  SearchState,
   SelectionState,
   PagingState,
   CustomPaging,
   GroupingState,
+  FilteringState,
+  IntegratedFiltering,
   IntegratedGrouping
 } from '@devexpress/dx-react-grid'
 import {
   Grid,
   Table,
   TableHeaderRow,
+  TableFilterRow,
   TableGroupRow,
+  TableColumnReordering,
   TableSelection,
   PagingPanel,
+  SearchPanel,
   GroupingPanel,
   DragDropProvider,
   Toolbar
@@ -140,15 +146,29 @@ const PeganganTable = () => {
           onCurrentPageChange={(val) => set(val)}
           defaultPageSize={pageSize}
         />
+        <SearchState />
         <CustomPaging totalCount={total} />
+        <FilteringState defaultFilters={[]} />
+        <IntegratedFiltering />
         <IntegratedGrouping />
         <SelectionState selection={selection} onSelectionChange={setSelection} />
         <Table rowComponent={TableRow} cellComponent={TableCell} />
+        <TableColumnReordering
+          defaultOrder={[
+            'id',
+            'CarianHPemohonNama',
+            'CarianHTarikhTerima',
+            'CarianHTarikhSiap',
+            'CarianHPemohonJenis',
+            'CarianH_CreatedOn'
+          ]}
+        />
         <TableHeaderRow />
+        <TableFilterRow />
         <TableSelection
-          selectByRowClick
+          // selectByRowClick
           highlightRow
-          showSelectionColumn={false}
+          showSelectionColumn={true}
           rowComponent={(props) => {
             return <TableRow {...props} />
           }}
@@ -157,6 +177,7 @@ const PeganganTable = () => {
         <Toolbar />
         <GroupingPanel showGroupingControls />
         <PagingPanel />
+        <SearchPanel />
       </Grid>
     </Paper>
   )
