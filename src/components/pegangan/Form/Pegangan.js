@@ -19,7 +19,8 @@ const useStyles = makeStyles({
     transform: 'scale(0.8)'
   },
   title: {
-    fontSize: 14
+    fontSize: 16,
+    color: '#9a9aa7'
   },
   pos: {
     marginBottom: 12
@@ -36,12 +37,11 @@ const PeganganForm = () => {
   return (
     <>
       {/* Pegangan */}
+      <Typography className={classes.title} gutterBottom>
+        Pegangan
+      </Typography>
       <Card variant="outlined">
         <CardContent>
-          <Typography className={classes.title} color="textSecondary" gutterBottom>
-            Pegangan
-          </Typography>
-
           <MUIGrid container spacing={3}>
             <MUIGrid item xs={12} md={3}>
               <Input
@@ -189,12 +189,11 @@ const PeganganForm = () => {
       <Box p={1} />
 
       {/* Kawasan */}
+      <Typography className={classes.title} gutterBottom>
+        Kawasan
+      </Typography>
       <Card variant="outlined">
         <CardContent>
-          <Typography className={classes.title} color="textSecondary" gutterBottom>
-            Kawasan
-          </Typography>
-
           <MUIGrid container spacing={3}>
             <MUIGrid item xs={12} md={3}>
               <Input
@@ -270,11 +269,11 @@ const PeganganForm = () => {
       <Box p={1} />
 
       {/* Tarikh */}
+      <Typography className={classes.title} gutterBottom>
+        Tarikh
+      </Typography>
       <Card variant="outlined">
         <CardContent>
-          <Typography className={classes.title} color="textSecondary" gutterBottom>
-            Tarikh
-          </Typography>
           <MUIGrid container spacing={3}>
             <MUIGrid item xs={12} md={3}>
               <Input
@@ -326,12 +325,11 @@ const PeganganForm = () => {
       <Box p={1} />
 
       {/* Rujukan */}
+      <Typography className={classes.title} gutterBottom>
+        Rujukan
+      </Typography>
       <Card variant="outlined">
         <CardContent>
-          <Typography className={classes.title} color="textSecondary" gutterBottom>
-            Rujukan
-          </Typography>
-
           <MUIGrid container spacing={3}>
             <MUIGrid item xs={12} md={3}>
               <Input
