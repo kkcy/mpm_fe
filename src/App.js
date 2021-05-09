@@ -17,7 +17,7 @@ import CarianEditPage from './pages/carian/edit'
 
 const PrivateRoute = ({ children, ...rest }) => {
   const { token } = useSnapshot(store)
-  console.log(token)
+  // console.log(token)
 
   return (
     <Route

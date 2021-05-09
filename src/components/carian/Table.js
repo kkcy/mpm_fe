@@ -32,13 +32,14 @@ import {
 } from '@devexpress/dx-react-grid-material-ui'
 
 const columns = [
-  { name: 'id', title: 'ID' },
-  { name: 'CarianHPemohonNama', title: 'Nama Pemohon' },
-  { name: 'CarianHTarikhTerima', title: 'Tarikh Terima' },
-  { name: 'CarianHTarikhSiap', title: 'Tarikh Siap' },
-  { name: 'CarianHPemohonJenis', title: 'Jenis Pemohonan' },
-  { name: 'CarianH_CreatedOn', title: 'Created On' }
+  { name: 'carianHid', title: 'ID' },
+  { name: 'carianHpemohonNama', title: 'Nama Pemohon' },
+  { name: 'carianHjumlahAmaun', title: 'Jumlah Amaun' },
+  { name: 'carianHnoDaftar', title: 'No Daftar' },
+  { name: 'carianHnoResit', title: 'No Reset' },
+  { name: 'carianHpemohonJenis', title: 'Jenis Pemohon' }
 ]
+const endpoint = 'https://127.0.0.1:5001/api'
 
 const TableRow = ({ highlighted, onToggle, ...restProps }) => {
   const history = useHistory()
@@ -55,7 +56,7 @@ const TableRow = ({ highlighted, onToggle, ...restProps }) => {
   return (
     <Table.Row
       {...restProps}
-      onClick={() => history.push(`carian/${row.id}`)}
+      onClick={() => history.push(`carian/${row.carianHid}`)}
       style={{
         cursor: 'pointer'
       }}
@@ -72,7 +73,7 @@ const TableCell = (props) => {
     column.name === 'CarianH_CreatedOn'
   ) {
     return <DateCell {...props} />
-  } else if (column.name === 'CarianHPemohonJenis') {
+  } else if (column.name === 'carianHpemohonJenis') {
     return <EnumCell {...props} />
   }
 
@@ -81,7 +82,7 @@ const TableCell = (props) => {
 
 const EnumCell = ({ value, ...rest }) => {
   const color =
-    { 1: 'red', 2: 'green', 3: 'blue', 4: 'yellow', 5: 'purple', 6: 'orange' }[value] || 'black'
+    { 1: '00072D', 2: '001C55', 3: '0A2472', 4: '0E6BA8', 5: 'A6E1FA', 6: 'B0A1BA' }[value] || 'black'
   const label =
     {
       1: 'Orang Awam',
@@ -94,7 +95,7 @@ const EnumCell = ({ value, ...rest }) => {
 
   return (
     <Table.Cell {...rest}>
-      <Chip style={{ backgroundColor: color, color: 'white' }} label={label}></Chip>
+      <Chip style={{ backgroundColor: color, color: 'black' }} label={label}></Chip>
     </Table.Cell>
   )
 }
@@ -113,28 +114,30 @@ const PeganganTable = () => {
   const [selection, setSelection] = useState([])
   const [grouping, setGrouping] = useState([])
 
-  // const url = `https://127.0.0.1:3333/api/v1/content?page=${currentPage + 1}&limit=${pageSize}`
-  // const { data: response, error } = useSWR(url)
+  const url = `${endpoint}/CarianHeader?page=${currentPage + 1}&limit=${pageSize}`
+  const { data: response, error } = useSWR(url)
 
-  // if (error) {
-  //   console.log(error)
-  //   return <h1>Something went wrong!</h1>
-  // }
-  // if (!response) return <CircularProgress />
-
+  if (error) {
+    console.log(error)
+    return <h1>Something went wrong!</h1>
+  }
+  if (!response) return <CircularProgress />
+  
+  const rows = response; // response.list.map((item, index) => ({ no: index + 1, ...item }))
   // const rows = response.data.data
-  // const total = response.data.meta.total
+  const total = response.length
+  console.log(rows)
 
-  const rows = Array.from(Array(15)).map((_, index) => ({
-    id: index + 1,
-    no: '#',
-    CarianHPemohonNama: '',
-    CarianHTarikhTerima: '',
-    CarianHTarikhSiap: '',
-    CarianHPemohonJenis: '',
-    CarianH_CreatedOn: ''
-  }))
-  const total = rows.length
+  // const rows = Array.from(Array(15)).map((_, index) => ({
+  //   id: index + 1,
+  //   no: '#',
+  //   CarianHPemohonNama: '',
+  //   CarianHTarikhTerima: '',
+  //   CarianHTarikhSiap: '',
+  //   CarianHPemohonJenis: '',
+  //   CarianH_CreatedOn: ''
+  // }))
+  // const total = rows.length
 
   return (
     <Paper>
