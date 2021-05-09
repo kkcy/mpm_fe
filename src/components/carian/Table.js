@@ -30,6 +30,7 @@ import {
   DragDropProvider,
   Toolbar
 } from '@devexpress/dx-react-grid-material-ui'
+import { endpoint } from '../../constant'
 
 const columns = [
   { name: 'carianHid', title: 'ID' },
@@ -39,7 +40,6 @@ const columns = [
   { name: 'carianHnoResit', title: 'No Reset' },
   { name: 'carianHpemohonJenis', title: 'Jenis Pemohon' }
 ]
-const endpoint = 'https://127.0.0.1:5001/api'
 
 const TableRow = ({ highlighted, onToggle, ...restProps }) => {
   const history = useHistory()
