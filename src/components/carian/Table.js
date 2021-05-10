@@ -30,7 +30,6 @@ import {
   DragDropProvider,
   Toolbar
 } from '@devexpress/dx-react-grid-material-ui'
-import { endpoint } from '../../constant'
 
 const columns = [
   { name: 'carianHid', title: 'ID' },
@@ -40,6 +39,8 @@ const columns = [
   { name: 'carianHnoResit', title: 'No Reset' },
   { name: 'carianHpemohonJenis', title: 'Jenis Pemohon' }
 ]
+const endpoint = 'https://mpm.gaincue.com/api'
+console.log(endpoint)
 
 const TableRow = ({ highlighted, onToggle, ...restProps }) => {
   const history = useHistory()

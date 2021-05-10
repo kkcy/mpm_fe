@@ -7,9 +7,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Box, Button, Drawer, FormHelperText } from '@material-ui/core'
 import MUIGrid from '@material-ui/core/Grid'
 
-import Input from '../../elements/input'
-import { login } from '../../store/auth'
-import { drawerWidth } from '../../layouts/DashboardLayout'
+import Input from '../../../elements/input'
+import { login } from '../../../store/auth'
+import { drawerWidth } from '../../../layouts/DashboardLayout'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const CarianForm = () => {
+const EditCarianForm = () => {
   const history = useHistory()
   const classes = useStyles()
   const methods = useForm()
@@ -110,4 +110,4 @@ const CarianForm = () => {
   )
 }
 
-export default CarianForm
+export default EditCarianForm

@@ -70,7 +70,7 @@ const TableCell = (props) => {
   return <Table.Cell {...props} />
 }
 
-const PeganganTable = ({ currentPage, pageSize, total, set }) => {
+const PeganganTable = ({ setSelectedRows, currentPage, pageSize, total, set }) => {
   const [selection, setSelection] = useState([])
   const [grouping, setGrouping] = useState([])
   const [defaultColumnWidths] = useState([
@@ -85,15 +85,24 @@ const PeganganTable = ({ currentPage, pageSize, total, set }) => {
 
   const url = `${endpoint}/hartapegangan?page=${currentPage + 1}&limit=${pageSize}`
   const { data: response, error } = useSWR(url)
+  const rows = response?.list.map((item, index) => ({ no: index + 1, ...item }))
+
+  useMemo(() => {
+    let newSelected = []
+    if (rows?.length > 0) {
+      selection.forEach((index) => {
+        newSelected.push(rows[index])
+      })
+    }
+
+    setSelectedRows && setSelectedRows(newSelected)
+  }, [selection])
 
   if (error) {
     console.log(error)
     return <h1>Something went wrong!</h1>
   }
   if (!response) return <CircularProgress />
-
-  const rows = response.list.map((item, index) => ({ no: index + 1, ...item }))
-  console.log(rows)
 
   return (
     <Paper>
@@ -126,14 +135,7 @@ const PeganganTable = ({ currentPage, pageSize, total, set }) => {
         />
         <TableHeaderRow />
         <TableFilterRow />
-        <TableSelection
-          selectByRowClick
-          highlightRow
-          showSelectionColumn={false}
-          rowComponent={(props) => {
-            return <TableRow {...props} />
-          }}
-        />
+        <TableSelection selectByRowClick highlightRow showSelectionColumn={true} />
         <TableGroupRow />
         <Toolbar />
         <GroupingPanel showGroupingControls />
@@ -144,7 +146,7 @@ const PeganganTable = ({ currentPage, pageSize, total, set }) => {
   )
 }
 
-const TableWrapper = () => {
+const TableWrapper = (props) => {
   const [currentPage, { set }] = useCounter(0)
   const [pageSize] = useState(15)
 
@@ -163,7 +165,13 @@ const TableWrapper = () => {
   return (
     <>
       {/* current page */}
-      <PeganganTable currentPage={currentPage} pageSize={pageSize} set={set} total={total} />
+      <PeganganTable
+        currentPage={currentPage}
+        pageSize={pageSize}
+        set={set}
+        total={total}
+        {...props}
+      />
       {/* cache for next page */}
       <div style={{ display: 'none' }}>
         {currentPage + 1 <= total / pageSize && (

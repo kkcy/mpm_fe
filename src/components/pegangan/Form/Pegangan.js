@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: 16,
-    color: '#9a9aa7'
+    color: '#2a2a27'
   },
   pos: {
     marginBottom: 12

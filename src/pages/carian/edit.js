@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Typography } from '@material-ui/core'
 
-import CarianForm from '../../components/carian/Form'
+import CarianForm from '../../components/carian/Form/edit'
 
 const CarianEditPage = () => {
   return (
