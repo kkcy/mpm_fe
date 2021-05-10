@@ -9,7 +9,7 @@ import {
   ValueAxis,
   Tooltip
 } from '@devexpress/dx-react-chart-material-ui'
-import { EventTracker } from '@devexpress/dx-react-chart'
+import { EventTracker, Animation } from '@devexpress/dx-react-chart'
 
 const useStyles = makeStyles({
   paper: {
@@ -30,6 +30,7 @@ const DashboardBarChart = ({ data, title }) => {
         <Title text={title} />
         <EventTracker />
         <Tooltip />
+        <Animation />
       </Chart>
     </Paper>
   )

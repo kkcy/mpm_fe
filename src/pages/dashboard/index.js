@@ -15,14 +15,30 @@ import store from '../../store/auth'
 import DashboardBarChart from '../../components/dashboard/charts/bar'
 
 const tanahData = [
-  { title: 'Russia', value: 12 },
-  { title: 'Canada', value: 7 },
-  { title: 'USA', value: 7 },
-  { title: 'China', value: 7 },
-  { title: 'Brazil', value: 6 },
-  { title: 'Australia', value: 5 },
-  { title: 'India', value: 2 },
-  { title: 'Others', value: 55 }
+  { title: 'BANGUNAN', value: 12 },
+  { title: 'PERTANIAN', value: 7 },
+  { title: 'PERINDUSTRIAN', value: 7 },
+  { title: 'LOT KOSONG BANGUNAN', value: 7 },
+  { title: 'TANAH KERAJAAN', value: 6 },
+  { title: 'PELANTAR', value: 6 }
+]
+
+const bangunanData = [
+  { title: 'APART', value: 12 },
+  { title: 'BURUNG', value: 7 },
+  { title: 'CBK', value: 7 },
+  { title: 'GERAI', value: 7 },
+  { title: 'HOTEL', value: 6 },
+  { title: 'INDUSTRI', value: 6 }
+]
+
+const mukimData = [
+  { title: 'LUMUT', value: 12 },
+  { title: 'SITIAWAN', value: 7 },
+  { title: 'LEKIR', value: 7 },
+  { title: 'BERUAS', value: 7 },
+  { title: 'PANGKALAN BHARU', value: 6 },
+  { title: 'MP MANJUNG', value: 6 }
 ]
 
 const ethnicData = [
@@ -62,10 +78,13 @@ const DashboardPage = () => {
       <Box>
         <MUIGrid container spacing={3}>
           <MUIGrid item xs={12} md={6} xl={3}>
+            <DashboardPieChart data={mukimData} title="Mukim" />
+          </MUIGrid>
+          <MUIGrid item xs={12} md={6} xl={3}>
             <DashboardPieChart data={tanahData} title="Tanah" />
           </MUIGrid>
           <MUIGrid item xs={12} md={6} xl={3}>
-            <DashboardPieChart data={tanahData} title="Bangunan" />
+            <DashboardPieChart data={bangunanData} title="Bangunan" />
           </MUIGrid>
         </MUIGrid>
       </Box>
