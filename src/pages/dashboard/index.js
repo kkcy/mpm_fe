@@ -3,7 +3,9 @@ import { DateTime } from 'luxon'
 import { useSnapshot } from 'valtio'
 import { Link } from 'react-router-dom'
 
-import { Box, Paper, Typography } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import MUIGrid from '@material-ui/core/Grid'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -47,13 +49,31 @@ const ethnicData = [
   { title: 'Indian', value: 7 }
 ]
 
+const useStyles = makeStyles((theme) => ({
+  flex: {
+    padding: theme.spacing(1),
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column-reverse',
+      justifyContent: 'flex-start'
+    },
+    [theme.breakpoints.up('md')]: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center'
+    }
+  }
+}))
+
 const DashboardPage = () => {
   const { profile } = useSnapshot(store)
   const [today] = useState(DateTime.local())
+  const classes = useStyles()
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <>
-      <Box display="flex" justifyContent="space-between">
+      <Box display="flex" className={classes.flex}>
         <Typography variant="h3">Welcome Back {profile?.username}</Typography>
         <Typography variant="h4">{today.toJSDate().toDateString()}</Typography>
       </Box>

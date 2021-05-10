@@ -18,7 +18,7 @@ const DashboardPieChart = ({ data, title }) => {
       <Chart data={data}>
         <PieSeries valueField="value" argumentField="title" />
         <Title text={title} />
-        <Legend />
+        <Legend position="bottom"/>
         <Animation />
         <EventTracker />
         <Tooltip />
