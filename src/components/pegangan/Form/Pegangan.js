@@ -24,6 +24,9 @@ const useStyles = makeStyles({
   },
   pos: {
     marginBottom: 12
+  },
+  offset: {
+    padding: '0 !important'
   }
 })
 
@@ -86,9 +89,7 @@ const PeganganForm = () => {
                 variant="outlined"
               />
             </MUIGrid>
-          </MUIGrid>
 
-          <MUIGrid container spacing={3}>
             <MUIGrid item xs={12} md={3}>
               <Input
                 name="PegNoLot"
@@ -110,9 +111,9 @@ const PeganganForm = () => {
                 variant="outlined"
               />
             </MUIGrid>
-          </MUIGrid>
 
-          <MUIGrid container spacing={3}>
+            <MUIGrid item xs={false} md={6} className={classes.offset} />
+
             <MUIGrid item xs={12} md={3}>
               <Input
                 name="PegNoMPT"
@@ -123,9 +124,9 @@ const PeganganForm = () => {
                 variant="outlined"
               />
             </MUIGrid>
-          </MUIGrid>
 
-          <MUIGrid container spacing={3}>
+            <MUIGrid item xs={false} md={9} className={classes.offset} />
+
             <MUIGrid item xs={12} md={3}>
               <Input
                 name="PegKadarB"
@@ -147,9 +148,9 @@ const PeganganForm = () => {
                 variant="outlined"
               />
             </MUIGrid>
-          </MUIGrid>
 
-          <MUIGrid container spacing={3}>
+            <MUIGrid item xs={false} md={6} className={classes.offset} />
+
             <MUIGrid item xs={12} md={3}>
               <Input
                 name="PegLuasBgn"
@@ -238,9 +239,7 @@ const PeganganForm = () => {
                 variant="outlined"
               />
             </MUIGrid>
-          </MUIGrid>
 
-          <MUIGrid container spacing={3}>
             <MUIGrid item xs={12} md={3}>
               <Input
                 name="PegNoRumah"
