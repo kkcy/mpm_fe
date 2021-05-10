@@ -79,10 +79,8 @@ const DashboardLayout = ({ children }) => {
         }}
       >
         <Toolbar>
-          <img src="/logo.png" alt="logo" style={{ height: 45, width: 'auto' }} />
-          <Typography variant="h6" style={{ marginLeft: 16 }}>
-            MPM
-          </Typography>
+          <img src="/mpm_logo.png" alt="logo" style={{ height: 45, width: 'auto' }} />
+          <img src="/mpm_title.png" alt="logo" style={{ height: 'auto', width: 125, marginLeft: 12 }} />
         </Toolbar>
         <div className={classes.drawerContainer}>
           <Sidebar />

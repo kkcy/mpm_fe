@@ -87,6 +87,8 @@ const NewCarianForm = () => {
           <FilterablePeganganTable setSelectedRows={setSelectedRows} />
         )}
 
+        <Box p={3} />
+        
         <Drawer
           anchor="right"
           open={isOpen}

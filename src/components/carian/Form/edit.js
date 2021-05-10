@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
-import { useBoolean } from 'react-use'
 import { useHistory } from 'react-router-dom'
+import _ from 'lodash'
+import { useBoolean } from 'react-use'
 
+import { Box, Typography, Button, Drawer } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { Box, Button, Drawer, FormHelperText } from '@material-ui/core'
-import MUIGrid from '@material-ui/core/Grid'
 
-import Input from '../../../elements/input'
-import { login } from '../../../store/auth'
+import FilterablePeganganTable from '../FilterablePeganganTable'
+import CarianForm from './Carian'
+import PeganganFilterForm from './Pegangan'
 import { drawerWidth } from '../../../layouts/DashboardLayout'
 
 const useStyles = makeStyles((theme) => ({
@@ -16,6 +17,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap'
+  },
+  title: {
+    fontSize: 16,
+    color: '#2a2a27'
   },
   drawer: {
     marginLeft: drawerWidth,
@@ -25,23 +30,27 @@ const useStyles = makeStyles((theme) => ({
     padding: '8px 16px',
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`
+  },
+  drawerRightPaper: {
+    background: 'rgb(225, 225, 238)',
+    padding: '32px',
+    width: '40%'
   }
 }))
 
+// edit should come with preloaded filter and data
 const EditCarianForm = () => {
   const history = useHistory()
   const classes = useStyles()
+  const [selectedRows, setSelectedRows] = useState([])
+
+  // forms
   const methods = useForm()
-  const {
-    handleSubmit,
-    setError,
-    formState: { errors }
-  } = methods
-  const [showPassword, toggle] = useBoolean(false)
+  const { reset, handleSubmit, setError } = methods
 
   const onSubmit = async (data) => {
     try {
-      login({ token: 'abcd', profile: { username: 'abcd', email: 'abcd' } })
+      reset()
     } catch (error) {
       console.log(error.response)
       setError('responseError', {
@@ -51,37 +60,27 @@ const EditCarianForm = () => {
     }
   }
 
+  console.log(selectedRows)
+
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)} className={classes.root}>
-        <MUIGrid container spacer={3}>
-          <MUIGrid item xs={12}>
-            <Input
-              name="CarianHNoDaftar"
-              rules={{ required: 'Please insert the No Daftar' }}
-              label="No Daftar"
-              error={errors.CarianHNoDaftar != null}
-              helperText={errors.CarianHNoDaftar}
-            />
+      <form
+        onSubmit={(e) => {
+          e.stopPropagation()
+          handleSubmit(onSubmit)
+        }}
+        className={classes.root}
+      >
+        <CarianForm />
 
-            <Box p={1} />
-          </MUIGrid>
+        <Box p={1} />
 
-          <MUIGrid item xs={12}>
-            <Input
-              name="CarianHPemohonNama"
-              rules={{ required: 'Please insert the Nama Pemohon' }}
-              label="Nama Pemohon"
-              error={errors.CarianHPemohonNama != null}
-              helperText={errors.CarianHPemohonNama}
-            />
+        <Typography className={classes.title} gutterBottom>
+          Pegangan Harta
+        </Typography>
+        <FilterablePeganganTable setSelectedRows={setSelectedRows} />
 
-            {errors.responseError && (
-              <FormHelperText error>{errors.responseError?.message}</FormHelperText>
-            )}
-            <Box p={1} />
-          </MUIGrid>
-        </MUIGrid>
+        <Box p={3} />
 
         <Drawer
           anchor="bottom"
@@ -91,18 +90,29 @@ const EditCarianForm = () => {
             paper: classes.drawerPaper
           }}
         >
-          <Box display="flex" justifyContent="flex-end">
-            <Button
-              variant="outlined"
-              disableElevation
-              style={{ marginRight: 12 }}
-              onClick={() => history.goBack()}
-            >
-              Cancel
-            </Button>
-            <Button variant="contained" disableElevation color="primary" type="submit">
-              Save
-            </Button>
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Box>
+              <Typography>Total: RM{(selectedRows?.length * 10.0).toFixed(2)}</Typography>
+            </Box>
+
+            <Box display="flex">
+              <Button
+                variant="outlined"
+                disableElevation
+                style={{ marginRight: 12 }}
+                onClick={() => history.goBack()}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="contained"
+                disableElevation
+                color="primary"
+                onClick={() => handleSubmit(onSubmit)()}
+              >
+                Save
+              </Button>
+            </Box>
           </Box>
         </Drawer>
       </form>

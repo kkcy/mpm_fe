@@ -40,7 +40,7 @@ const CarianForm = () => {
       <Typography className={classes.title} gutterBottom>
         Pemohon
       </Typography>
-      <Card variant="outlined">
+      <Card variant="outlined" className={classes.card}>
         <CardContent>
           <MUIGrid container spacing={3}>
             <MUIGrid item xs={12} md={3}>
@@ -96,7 +96,7 @@ const CarianForm = () => {
       <Typography className={classes.title} gutterBottom>
         Alamat
       </Typography>
-      <Card variant="outlined">
+      <Card variant="outlined" className={classes.card}>
         <CardContent>
           <MUIGrid container spacing={3}>
             <MUIGrid item xs={12} md={6}>
@@ -151,7 +151,7 @@ const CarianForm = () => {
       <Typography className={classes.title} gutterBottom>
         Resit
       </Typography>
-      <Card variant="outlined">
+      <Card variant="outlined" className={classes.card}>
         <CardContent>
           <MUIGrid container spacing={3}>
             <MUIGrid item xs={12} md={3}>
