@@ -1,13 +1,15 @@
 import React from 'react'
 import { useFormContext } from 'react-hook-form'
 
-import { Box, FormHelperText, Typography } from '@material-ui/core'
+import { Box, Button, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import MUIGrid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 
 import Input from '../../../elements/input'
+import Pemilik from './Pemilik'
+import { useCounter } from 'react-use'
 
 const useStyles = makeStyles({
   root: {
@@ -36,228 +38,100 @@ const PeganganForm = () => {
   const {
     formState: { errors }
   } = methods
+  const [pemilikSize, { inc, dec }] = useCounter(1, null, 1)
 
   return (
     <>
-      {/* Pegangan */}
       <Typography className={classes.title} gutterBottom>
-        Pegangan
+        Maklumat Harta
       </Typography>
       <Card variant="outlined">
         <CardContent>
           <MUIGrid container spacing={3}>
-            <MUIGrid item xs={12} md={3}>
+            <MUIGrid item xs={12} md={6}>
               <Input
-                name="PegNoAkaun"
-                rules={{ required: 'Please insert the No Akaun Kewangan' }}
-                label="No Akaun Kewangan"
-                error={errors.PegNoAkaun != null}
-                helperText={errors.PegNoAkaun}
+                name="pegNoAkaun"
+                rules={{ required: 'Please insert the No Akaun' }}
+                label="No Akaun"
+                error={errors.pegNoAkaun != null}
+                helperText={errors.pegNoAkaun}
                 variant="outlined"
               />
             </MUIGrid>
 
-            <MUIGrid item xs={12} md={3}>
+            <MUIGrid item xs={12} md={6}>
               <Input
-                name="PegAUID"
-                rules={{ required: 'Please insert the AUID Pegangan' }}
-                label="AUID Pegangan"
-                error={errors.PegAUID != null}
-                helperText={errors.PegAUID}
-                variant="outlined"
-              />
-            </MUIGrid>
-
-            <MUIGrid item xs={12} md={3}>
-              <Input
-                name="PegStatus"
-                rules={{ required: 'Please insert the Status Pegangan' }}
-                label="Status Pegangan"
-                error={errors.PegStatus != null}
-                helperText={errors.PegStatus}
-                variant="outlined"
-              />
-            </MUIGrid>
-
-            <MUIGrid item xs={12} md={3}>
-              <Input
-                name="PegPelan"
-                rules={{ required: 'Please insert the Pelan Pegangan' }}
-                label="Pelan Pegangan"
-                error={errors.PegPelan != null}
-                helperText={errors.PegPelan}
-                variant="outlined"
-              />
-            </MUIGrid>
-
-            <MUIGrid item xs={12} md={3}>
-              <Input
-                name="PegNoLot"
-                rules={{ required: 'Please insert the No Lot Pegangan' }}
-                label="No Lot Pegangan"
-                error={errors.PegNoLot != null}
-                helperText={errors.PegNoLot}
-                variant="outlined"
-              />
-            </MUIGrid>
-
-            <MUIGrid item xs={12} md={3}>
-              <Input
-                name="PegBilLot"
-                rules={{ required: 'Please insert the Bilangan Lot Pegangan' }}
-                label="Bilangan Lot Pegangan"
-                error={errors.PegBilLot != null}
-                helperText={errors.PegBilLot}
-                variant="outlined"
-              />
-            </MUIGrid>
-
-            <MUIGrid item xs={false} md={6} className={classes.offset} />
-
-            <MUIGrid item xs={12} md={3}>
-              <Input
-                name="PegNoMPT"
-                rules={{ required: 'Please insert the No MPT' }}
-                label="No MPT"
-                error={errors.PegNoMPT != null}
-                helperText={errors.PegNoMPT}
-                variant="outlined"
-              />
-            </MUIGrid>
-
-            <MUIGrid item xs={false} md={9} className={classes.offset} />
-
-            <MUIGrid item xs={12} md={3}>
-              <Input
-                name="PegKadarB"
-                rules={{ required: 'Please insert the Kadar Baru Pegangan' }}
-                label="Kadar Baru Pegangan"
-                error={errors.PegKadarB != null}
-                helperText={errors.PegKadarB}
-                variant="outlined"
-              />
-            </MUIGrid>
-
-            <MUIGrid item xs={12} md={3}>
-              <Input
-                name="PegCukaiB"
-                rules={{ required: 'Please insert the Cukai Baru Pegangan' }}
-                label="Cukai Baru Pegangan"
-                error={errors.PegCukaiB != null}
-                helperText={errors.PegCukaiB}
-                variant="outlined"
-              />
-            </MUIGrid>
-
-            <MUIGrid item xs={false} md={6} className={classes.offset} />
-
-            <MUIGrid item xs={12} md={3}>
-              <Input
-                name="PegLuasBgn"
-                rules={{ required: 'Please insert the Luas Bangunan' }}
-                label="Luas Bangunan"
-                error={errors.PegLuasBgn != null}
-                helperText={errors.PegLuasBgn}
-                variant="outlined"
-              />
-            </MUIGrid>
-
-            <MUIGrid item xs={12} md={3}>
-              <Input
-                name="PegLuasTnh"
-                rules={{ required: 'Please insert the Luas Tanah' }}
-                label="Luas Tanah"
-                error={errors.PegLuasTnh != null}
-                helperText={errors.PegLuasTnh}
-                variant="outlined"
-              />
-            </MUIGrid>
-
-            <MUIGrid item xs={12} md={3}>
-              <Input
-                name="PegBilPK"
-                rules={{ required: 'Please insert the Bilangan Petak' }}
-                label="Bilangan Petak"
-                error={errors.PegBilPK != null}
-                helperText={errors.PegBilPK}
-                variant="outlined"
-              />
-            </MUIGrid>
-          </MUIGrid>
-        </CardContent>
-      </Card>
-
-      <Box p={1} />
-
-      {/* Kawasan */}
-      <Typography className={classes.title} gutterBottom>
-        Kawasan
-      </Typography>
-      <Card variant="outlined">
-        <CardContent>
-          <MUIGrid container spacing={3}>
-            <MUIGrid item xs={12} md={3}>
-              <Input
-                name="Negeri"
-                rules={{ required: 'Please insert the Negeri' }}
-                label="Negeri"
-                error={errors.Negeri != null}
-                helperText={errors.Negeri}
-                variant="outlined"
-              />
-            </MUIGrid>
-
-            <MUIGrid item xs={12} md={3}>
-              <Input
-                name="Mukim"
+                name="pegJln.pegJln.jlnKaw.kawMk.mkNama"
                 rules={{ required: 'Please insert the Mukim' }}
                 label="Mukim"
-                error={errors.Mukim != null}
-                helperText={errors.Mukim}
+                error={errors.pegJln?.jlnKaw?.kawMk?.mkNama != null}
+                helperText={errors.pegJln?.jlnKaw?.kawMk?.mkNama}
                 variant="outlined"
               />
             </MUIGrid>
 
-            <MUIGrid item xs={12} md={3}>
+            <MUIGrid item xs={12} md={6}>
               <Input
-                name="Daerah"
-                rules={{ required: 'Please insert the Daerah' }}
-                label="Daerah"
-                error={errors.Daerah != null}
-                helperText={errors.Daerah}
-                variant="outlined"
-              />
-            </MUIGrid>
-
-            <MUIGrid item xs={12} md={3}>
-              <Input
-                name="Seksyen"
-                rules={{ required: 'Please insert the Seksyen' }}
-                label="Seksyen"
-                error={errors.Seksyen != null}
-                helperText={errors.Seksyen}
-                variant="outlined"
-              />
-            </MUIGrid>
-
-            <MUIGrid item xs={12} md={3}>
-              <Input
-                name="PegNoRumah"
+                name="pegNoRumah"
                 rules={{ required: 'Please insert the No Rumah' }}
                 label="No Rumah"
-                error={errors.PegNoRumah != null}
-                helperText={errors.PegNoRumah}
+                error={errors.pegNoRumah != null}
+                helperText={errors.pegNoRumah}
                 variant="outlined"
               />
             </MUIGrid>
 
-            <MUIGrid item xs={12} md={3}>
+            <MUIGrid item xs={12} md={6}>
               <Input
-                name="PegTempat"
+                name="pegJln.pegJln.jlnKaw.kawNama"
+                rules={{ required: 'Please insert the Kawasan' }}
+                label="Kawasan"
+                error={errors.pegJln?.jlnKaw?.kawNama != null}
+                helperText={errors.pegJln?.jlnKaw?.kawNama}
+                variant="outlined"
+              />
+            </MUIGrid>
+
+            <MUIGrid item xs={12} md={6}>
+              <Input
+                name="pegJln.jlnNama"
+                rules={{ required: 'Please insert the Name Jalan' }}
+                label="Name Jalan"
+                error={errors.pegJln?.jlnNama != null}
+                helperText={errors.pegJln?.jlnNama}
+                variant="outlined"
+              />
+            </MUIGrid>
+
+            <MUIGrid item xs={12} md={6}>
+              <Input
+                name="pegTempat"
                 rules={{ required: 'Please insert the Tempat' }}
                 label="Tempat"
-                error={errors.PegTempat != null}
-                helperText={errors.PegTempat}
+                error={errors.pegTempat != null}
+                helperText={errors.pegTempat}
+                variant="outlined"
+              />
+            </MUIGrid>
+
+            <MUIGrid item xs={12} md={6}>
+              <Input
+                name="pegJln.jlnPoskod"
+                rules={{ required: 'Please insert the Poskod' }}
+                label="Poskod"
+                error={errors.pegJln?.jlnPoskod != null}
+                helperText={errors.pegJln?.jlnPoskod}
+                variant="outlined"
+              />
+            </MUIGrid>
+
+            <MUIGrid item xs={12} md={6}>
+              <Input
+                name="pegJln.pegJln.jlnNegeri"
+                rules={{ required: 'Please insert the Negeri' }}
+                label="Negeri"
+                error={errors.pegJln?.jlnNegeri != null}
+                helperText={errors.pegJln?.jlnNegeri}
                 variant="outlined"
               />
             </MUIGrid>
@@ -267,53 +141,74 @@ const PeganganForm = () => {
 
       <Box p={1} />
 
-      {/* Tarikh */}
       <Typography className={classes.title} gutterBottom>
-        Tarikh
+        Maklumat Penilaian
       </Typography>
       <Card variant="outlined">
         <CardContent>
           <MUIGrid container spacing={3}>
-            <MUIGrid item xs={12} md={3}>
+            <MUIGrid item xs={12} md={6}>
               <Input
-                name="PegTkhOC"
-                rules={{ required: 'Please insert the Tarikh O.C.' }}
-                label="Tarikh O.C."
-                error={errors.PegTkhOC != null}
-                helperText={errors.PegTkhOC}
+                name="pegNTahunB"
+                rules={{ required: 'Please insert the Nilai Tahunan' }}
+                label="Nilai Tahunan (RM)"
+                error={errors.pegNTahunB != null}
+                helperText={errors.pegNTahunB}
                 variant="outlined"
               />
             </MUIGrid>
 
-            <MUIGrid item xs={12} md={3}>
+            <MUIGrid item xs={12} md={6}>
               <Input
-                name="PegTkhKuatKuasa"
+                name="pegTkhKuatKuasa"
                 rules={{ required: 'Please insert the Tarikh Kuat Kuasa' }}
                 label="Tarikh Kuat Kuasa"
-                error={errors.PegTkhKuatKuasa != null}
-                helperText={errors.PegTkhKuatKuasa}
+                error={errors.pegTkhKuatKuasa != null}
+                helperText={errors.pegTkhKuatKuasa}
                 variant="outlined"
               />
             </MUIGrid>
 
-            <MUIGrid item xs={12} md={3}>
+            <MUIGrid item xs={12} md={6}>
               <Input
-                name="PegTkhPNL"
-                rules={{ required: 'Please insert the Tarikh Penilaian' }}
-                label="Tarikh Penilaian"
-                error={errors.PegTkhPNL != null}
-                helperText={errors.PegTkhPNL}
+                name="pegKadarB"
+                rules={{ required: 'Please insert the Kadar Baru Pegangan' }}
+                label="Kadar Baru Pegangan"
+                error={errors.pegKadarB != null}
+                helperText={errors.pegKadarB}
                 variant="outlined"
               />
             </MUIGrid>
 
-            <MUIGrid item xs={12} md={3}>
+            <MUIGrid item xs={12} md={6}>
               <Input
-                name="PegNTahunB"
-                rules={{ required: 'Please insert the Nilai Tahunan Baru Pegangan' }}
-                label="Nilai Tahunan Baru Pegangan"
-                error={errors.PegNTahunB != null}
-                helperText={errors.PegNTahunB}
+                name="pegLuasBgn"
+                rules={{ required: 'Please insert the Luas Bangunan' }}
+                label="Luas Bangunan"
+                error={errors.pegLuasBgn != null}
+                helperText={errors.pegLuasBgn}
+                variant="outlined"
+              />
+            </MUIGrid>
+
+            <MUIGrid item xs={12} md={6}>
+              <Input
+                name="pegCukaiB"
+                rules={{ required: 'Please insert the Cukai Baru Pegangan' }}
+                label="Cukai Baru Pegangan"
+                error={errors.pegCukaiB != null}
+                helperText={errors.pegCukaiB}
+                variant="outlined"
+              />
+            </MUIGrid>
+
+            <MUIGrid item xs={12} md={6}>
+              <Input
+                name="pegLuasTnh"
+                rules={{ required: 'Please insert the Luas Tanah' }}
+                label="Luas Tanah"
+                error={errors.pegLuasTnh != null}
+                helperText={errors.pegLuasTnh}
                 variant="outlined"
               />
             </MUIGrid>
@@ -323,41 +218,19 @@ const PeganganForm = () => {
 
       <Box p={1} />
 
-      {/* Rujukan */}
-      <Typography className={classes.title} gutterBottom>
-        Rujukan
-      </Typography>
+      <Box display="flex" justifyContent="space-between" alignItems="center" marginBottom={1}>
+        <Typography className={classes.title}>Maklumat Pemilik</Typography>
+        <Button onClick={() => inc()}>Add</Button>
+      </Box>
       <Card variant="outlined">
         <CardContent>
-          <MUIGrid container spacing={3}>
-            <MUIGrid item xs={12} md={3}>
-              <Input
-                name="PegRjkFail"
-                rules={{ required: 'Please insert theRujukan Fail Rujukan Fail' }}
-                label="Rujukan Fail"
-                error={errors.PegRjkFail != null}
-                helperText={errors.PegRjkFail}
-                variant="outlined"
-              />
-            </MUIGrid>
-
-            <MUIGrid item xs={12} md={3}>
-              <Input
-                name="PegRjkMMK"
-                rules={{ required: 'Please insert the Rujukan MMK' }}
-                label="Rujukan MMK"
-                error={errors.PegRjkMMK != null}
-                helperText={errors.PegRjkMMK}
-                variant="outlined"
-              />
-
-              {errors.responseError && (
-                <FormHelperText error>{errors.responseError?.message}</FormHelperText>
-              )}
-            </MUIGrid>
-          </MUIGrid>
+          {Array.from(Array(pemilikSize)).map((_, index) => {
+            return <Pemilik key={index} index={index} dec={dec} />
+          })}
         </CardContent>
       </Card>
+
+      <Box p={3} />
     </>
   )
 }
