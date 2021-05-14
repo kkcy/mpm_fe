@@ -32,15 +32,15 @@ import {
 } from '@devexpress/dx-react-grid-material-ui'
 
 const columns = [
-  { name: 'carianHid', title: 'ID' },
-  { name: 'carianHpemohonNama', title: 'Nama Pemohon' },
-  { name: 'carianHjumlahAmaun', title: 'Jumlah Amaun' },
   { name: 'carianHnoDaftar', title: 'No Daftar' },
-  { name: 'carianHnoResit', title: 'No Reset' },
-  { name: 'carianHpemohonJenis', title: 'Jenis Pemohon' }
+  { name: 'CarianHTarikhTerima', title: 'Tarikh Terima' },
+  { name: 'CarianHTarikhSiap', title: 'Tarikh Siap' },
+  { name: 'carianHpemohonJenis', title: 'Jenis' },
+  { name: 'carianHpemohonNama', title: 'Nama Pemohon' },
+  { name: 'carianHjumlahAmaun', title: 'Jumlah Perlu Bayah' },
+  { name: 'CarianHTarikhCetak', title: 'Tarikh Cetak' }
 ]
 const endpoint = 'https://mpm.gaincue.com/api'
-console.log(endpoint)
 
 const TableRow = ({ highlighted, onToggle, ...restProps }) => {
   const history = useHistory()
@@ -83,7 +83,8 @@ const TableCell = (props) => {
 
 const EnumCell = ({ value, ...rest }) => {
   const color =
-    { 1: '00072D', 2: '001C55', 3: '0A2472', 4: '0E6BA8', 5: 'A6E1FA', 6: 'B0A1BA' }[value] || 'black'
+    { 1: '00072D', 2: '001C55', 3: '0A2472', 4: '0E6BA8', 5: 'A6E1FA', 6: 'B0A1BA' }[value] ||
+    'black'
   const label =
     {
       1: 'Orang Awam',
@@ -109,7 +110,7 @@ const DateCell = ({ value, ...rest }) => {
   )
 }
 
-const PeganganTable = () => {
+const CarianTable = () => {
   const [currentPage, { set }] = useCounter(0)
   const [pageSize] = useState(15)
   const [selection, setSelection] = useState([])
@@ -123,22 +124,9 @@ const PeganganTable = () => {
     return <h1>Something went wrong!</h1>
   }
   if (!response) return <CircularProgress />
-  
-  const rows = response; // response.list.map((item, index) => ({ no: index + 1, ...item }))
-  // const rows = response.data.data
-  const total = response.length
-  console.log(rows)
 
-  // const rows = Array.from(Array(15)).map((_, index) => ({
-  //   id: index + 1,
-  //   no: '#',
-  //   CarianHPemohonNama: '',
-  //   CarianHTarikhTerima: '',
-  //   CarianHTarikhSiap: '',
-  //   CarianHPemohonJenis: '',
-  //   CarianH_CreatedOn: ''
-  // }))
-  // const total = rows.length
+  const rows = response
+  const total = response.length
 
   return (
     <Paper>
@@ -159,12 +147,13 @@ const PeganganTable = () => {
         <Table rowComponent={TableRow} cellComponent={TableCell} />
         <TableColumnReordering
           defaultOrder={[
-            'id',
-            'CarianHPemohonNama',
+            'carianHnoDaftar',
             'CarianHTarikhTerima',
             'CarianHTarikhSiap',
-            'CarianHPemohonJenis',
-            'CarianH_CreatedOn'
+            'carianHpemohonJenis',
+            'carianHpemohonNama',
+            'carianHjumlahAmaun',
+            'CarianHTarikhCetak'
           ]}
         />
         <TableHeaderRow />
@@ -187,4 +176,4 @@ const PeganganTable = () => {
   )
 }
 
-export default PeganganTable
+export default CarianTable
