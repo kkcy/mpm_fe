@@ -8,6 +8,7 @@ const navigation = [
   { name: 'Pegangan', path: '/dashboard/pegangan' },
   { name: 'Carian', path: '/dashboard/carian' },
   { name: 'Lawat Periksa', path: '/dashboard/lawat' },
+  { name: 'Elaun Kekosongan', path: '/dashboard/elaun' }
 ]
 
 const Sidebar = () => {
