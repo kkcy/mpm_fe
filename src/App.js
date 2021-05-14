@@ -15,6 +15,7 @@ import PeganganEditPage from './pages/pegangan/edit'
 import CarianPage from './pages/carian'
 import CarianEditPage from './pages/carian/edit'
 import CarianNewPage from './pages/carian/new'
+import LawatPage from './pages/lawat'
 
 const PrivateRoute = ({ children, ...rest }) => {
   const { token } = useSnapshot(store)
@@ -92,6 +93,9 @@ const App = () => (
             </Route>
             <Route path="/dashboard/carian" exact>
               <CarianPage />
+            </Route>
+            <Route path="/dashboard/lawat" exact>
+              <LawatPage />
             </Route>
             <Route path="/dashboard" exact>
               <DashboardPage />

@@ -6,7 +6,8 @@ import ListItemText from '@material-ui/core/ListItemText'
 
 const navigation = [
   { name: 'Pegangan', path: '/dashboard/pegangan' },
-  { name: 'Carian', path: '/dashboard/carian' }
+  { name: 'Carian', path: '/dashboard/carian' },
+  { name: 'Lawat Periksa', path: '/dashboard/lawat' },
 ]
 
 const Sidebar = () => {
