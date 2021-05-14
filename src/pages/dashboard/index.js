@@ -4,8 +4,7 @@ import { useSnapshot } from 'valtio'
 import { Link } from 'react-router-dom'
 
 import { Box, Typography } from '@material-ui/core'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { makeStyles } from '@material-ui/core/styles'
 import MUIGrid from '@material-ui/core/Grid'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -13,40 +12,49 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
 
 import DashboardPieChart from '../../components/dashboard/charts/pie'
-import store from '../../store/auth'
 import DashboardBarChart from '../../components/dashboard/charts/bar'
+import store from '../../store/auth'
+import DashboardLineChart from '../../components/dashboard/charts/line'
 
-const tanahData = [
-  { title: 'BANGUNAN', value: 12 },
-  { title: 'PERTANIAN', value: 7 },
-  { title: 'PERINDUSTRIAN', value: 7 },
-  { title: 'LOT KOSONG BANGUNAN', value: 7 },
-  { title: 'TANAH KERAJAAN', value: 6 },
-  { title: 'PELANTAR', value: 6 }
+const pemilikData = [
+  { title: 'CINA', value: 12 },
+  { title: 'INDIA', value: 7 },
+  { title: 'LAIN', value: 2 },
+  { title: 'MELAYU', value: 7 }
 ]
 
-const bangunanData = [
-  { title: 'APART', value: 12 },
-  { title: 'BURUNG', value: 7 },
-  { title: 'CBK', value: 7 },
-  { title: 'GERAI', value: 7 },
-  { title: 'HOTEL', value: 6 },
-  { title: 'INDUSTRI', value: 6 }
+const kegunaanData = [
+  { title: 'Perindutrian', value: 12 },
+  { title: 'Perdagangan', value: 7 },
+  { title: 'Kediaman', value: 7 },
+  { title: 'Agro', value: 7 },
+  { title: 'Lain', value: 6 }
 ]
 
 const mukimData = [
-  { title: 'LUMUT', value: 12 },
-  { title: 'SITIAWAN', value: 7 },
+  { title: 'ZON', value: 12 },
+  { title: 'LUMUT', value: 7 },
   { title: 'LEKIR', value: 7 },
-  { title: 'BERUAS', value: 7 },
+  { title: 'SITIAWAN', value: 7 },
+  { title: 'BERUAS', value: 6 },
   { title: 'PANGKALAN BHARU', value: 6 },
-  { title: 'MP MANJUNG', value: 6 }
+  { title: 'MP MANJUNG', value: 6 },
+  { title: 'E-KASIH', value: 6 }
 ]
 
-const ethnicData = [
-  { title: 'Malay', value: 12 },
-  { title: 'Cina', value: 7 },
-  { title: 'Indian', value: 7 }
+const kpiData = [
+  { title: 'Jan', value: 300 },
+  { title: 'Feb', value: 200 },
+  { title: 'Mac', value: 100 },
+  { title: 'Apr', value: 300 },
+  { title: 'Mei', value: 200 },
+  { title: 'Jun', value: 50 },
+  { title: 'Jul', value: 20 },
+  { title: 'Ogos', value: 80 },
+  { title: 'Sep', value: 210 },
+  { title: 'Okt', value: 200 },
+  { title: 'Nov', value: 200 },
+  { title: 'Dis', value: 300 },
 ]
 
 const useStyles = makeStyles((theme) => ({
@@ -68,8 +76,6 @@ const DashboardPage = () => {
   const { profile } = useSnapshot(store)
   const [today] = useState(DateTime.local())
   const classes = useStyles()
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <>
@@ -97,14 +103,14 @@ const DashboardPage = () => {
 
       <Box>
         <MUIGrid container spacing={3}>
-          <MUIGrid item xs={12} md={6} xl={3}>
-            <DashboardPieChart data={mukimData} title="Mukim" />
+          <MUIGrid item xs={12} md={6} xl={4}>
+            <DashboardPieChart data={mukimData} title="Bilangan Harta mengikut Mukim" />
           </MUIGrid>
-          <MUIGrid item xs={12} md={6} xl={3}>
-            <DashboardPieChart data={tanahData} title="Tanah" />
+          <MUIGrid item xs={12} md={6} xl={4}>
+            <DashboardPieChart data={pemilikData} title="Bilangan Harta mengikut Bangsa Pemilik" />
           </MUIGrid>
-          <MUIGrid item xs={12} md={6} xl={3}>
-            <DashboardPieChart data={bangunanData} title="Bangunan" />
+          <MUIGrid item xs={12} md={6} xl={4}>
+            <DashboardBarChart data={kegunaanData} title="Bilangan Harta mengikut Kegunaan" />
           </MUIGrid>
         </MUIGrid>
       </Box>
@@ -113,8 +119,8 @@ const DashboardPage = () => {
 
       <Box>
         <MUIGrid container spacing={3}>
-          <MUIGrid item xs={12} xl={6}>
-            <DashboardBarChart data={ethnicData} title="Pemilik Bangunan" />
+          <MUIGrid item xs={12}>
+            <DashboardLineChart data={kpiData} title="KPI Produktiviti pada Tahun 2020" />
           </MUIGrid>
         </MUIGrid>
       </Box>
