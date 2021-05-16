@@ -1,15 +1,15 @@
 import React from 'react'
 import { useFormContext } from 'react-hook-form'
-
+import { useCounter } from 'react-use'
 import { Box, Button, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import MUIGrid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 
-import Input from '../../../elements/input'
 import Pemilik from './Pemilik'
-import { useCounter } from 'react-use'
+import Media from './Media'
+import Input from '../../../elements/input'
 
 const useStyles = makeStyles({
   root: {
@@ -230,6 +230,26 @@ const PeganganForm = () => {
         </CardContent>
       </Card>
 
+      <Box p={1} />
+
+      <Typography className={classes.title} gutterBottom>
+        Media
+      </Typography>
+      <Card variant="outlined">
+        <CardContent>
+          {/* ToDo: pass file to form */}
+          <Media title={'Foto'} name="foto" />
+
+          <Box p={1} />
+
+          <Media title={'Sketch'} name="sketch" />
+
+          <Box p={1} />
+
+          <Media title={'Dokumen'} name="dokumen" />
+        </CardContent>
+      </Card>
+      
       <Box p={3} />
     </>
   )
