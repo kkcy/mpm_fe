@@ -54,7 +54,7 @@ const kpiData = [
   { title: 'Sep', value: 210 },
   { title: 'Okt', value: 200 },
   { title: 'Nov', value: 200 },
-  { title: 'Dis', value: 300 },
+  { title: 'Dis', value: 300 }
 ]
 
 const useStyles = makeStyles((theme) => ({
@@ -84,32 +84,17 @@ const DashboardPage = () => {
         <Typography variant="h4">{today.toJSDate().toDateString()}</Typography>
       </Box>
 
-      <Box p={2} />
-
-      <Box>
-        <Typography variant="h6">You may...</Typography>
-        <List>
-          <ListItem button component={Link} to="/dashboard/pegangan">
-            <ListItemText>Create a new Pegangan</ListItemText>
-          </ListItem>
-          <Divider />
-          <ListItem button component={Link} to="/dashboard/carian">
-            <ListItemText>Look for owners with Carian</ListItemText>
-          </ListItem>
-        </List>
-      </Box>
-
       <Box p={1} />
 
       <Box>
         <MUIGrid container spacing={3}>
-          <MUIGrid item xs={12} md={6} xl={4}>
+          <MUIGrid item xs={12} md={4}>
             <DashboardPieChart data={mukimData} title="Bilangan Harta mengikut Mukim" />
           </MUIGrid>
-          <MUIGrid item xs={12} md={6} xl={4}>
+          <MUIGrid item xs={12} md={4}>
             <DashboardPieChart data={pemilikData} title="Bilangan Harta mengikut Bangsa Pemilik" />
           </MUIGrid>
-          <MUIGrid item xs={12} md={6} xl={4}>
+          <MUIGrid item xs={12} md={4}>
             <DashboardBarChart data={kegunaanData} title="Bilangan Harta mengikut Kegunaan" />
           </MUIGrid>
         </MUIGrid>

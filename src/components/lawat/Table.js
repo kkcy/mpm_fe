@@ -32,7 +32,7 @@ import {
 } from '@devexpress/dx-react-grid-material-ui'
 
 const columns = [
-  { name: 'carianHnoDaftar', title: 'No Daftar' },
+  { name: 'carianHnoDaftar', title: 'No Daftar Lawatan' },
   { name: 'CarianHTarikhTerima', title: 'Tarikh Daftar' },
   { name: 'CarianHTarikhSiap', title: 'Jenis Lawatan' },
   { name: 'carianHpemohonJenis', title: 'Kes No Dafter' },
