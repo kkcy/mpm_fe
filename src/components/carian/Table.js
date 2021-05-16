@@ -33,12 +33,13 @@ import {
 
 const columns = [
   { name: 'carianHnoDaftar', title: 'No Daftar' },
-  { name: 'CarianHTarikhTerima', title: 'Tarikh Terima' },
-  { name: 'CarianHTarikhSiap', title: 'Tarikh Siap' },
+  { name: 'carianHTarikhTerima', title: 'Tarikh Terima' },
+  { name: 'carianHTarikhSiap', title: 'Tarikh Siap' },
   { name: 'carianHpemohonJenis', title: 'Jenis' },
   { name: 'carianHpemohonNama', title: 'Nama Pemohon' },
   { name: 'carianHjumlahAmaun', title: 'Jumlah Perlu Bayah' },
-  { name: 'CarianHTarikhCetak', title: 'Tarikh Cetak' }
+  { name: 'carianHPengecualian', title: 'Pengecualian' },
+  { name: 'carianHTarikhCetak', title: 'Tarikh Cetak' }
 ]
 const endpoint = 'https://mpm.gaincue.com/api'
 
@@ -148,12 +149,13 @@ const CarianTable = () => {
         <TableColumnReordering
           defaultOrder={[
             'carianHnoDaftar',
-            'CarianHTarikhTerima',
-            'CarianHTarikhSiap',
+            'carianHTarikhTerima',
+            'carianHTarikhSiap',
             'carianHpemohonJenis',
             'carianHpemohonNama',
             'carianHjumlahAmaun',
-            'CarianHTarikhCetak'
+            'carianHPengecualian',
+            'carianHTarikhCetak'
           ]}
         />
         <TableHeaderRow />
