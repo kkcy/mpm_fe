@@ -34,13 +34,23 @@ import {
 
 const columns = [
   { name: 'no', title: '#' },
-  { name: 'pegId', title: 'ID' },
-  { name: 'pegAuid', title: 'AUID' },
+  // { name: 'pegId', title: 'ID' },
   { name: 'pegNoAkaun', title: 'No Akaun' },
+  {
+    name: 'mkNama',
+    title: 'Mukim'
+    // ToDo: what is the preferred way?
+    // name: 'pegJln.pegJln.jlnKaw.kawMk.mkNama',
+    // getCellValue: (row) => row.pegJln?.pegJln?.jlnKaw?.kawMk?.mkNama
+  },
+  { name: 'kawNama', title: 'Kawasan' },
   { name: 'pegNoRumah', title: 'No Rumah' },
-  { name: 'pegRjkFail', title: 'Rujukan Fail' },
-  { name: 'pegRjkMmk', title: 'Rujukan MMK' }
+  { name: 'jlnNama', title: 'Name Jalan' },
+  { name: 'pegNTahunB', title: 'Nilai Tahunan (RM)' },
+  { name: 'pegKadarB', title: 'Kadar (%)' },
+  { name: 'pegCukaiB', title: 'Cukai (RM)' }
 ]
+
 const endpoint = 'https://mpm.gaincue.com/api'
 
 const TableRow = ({ highlighted, onToggle, ...restProps }) => {
@@ -73,15 +83,6 @@ const TableCell = (props) => {
 const PeganganTable = ({ currentPage, pageSize, total, set }) => {
   const [selection, setSelection] = useState([])
   const [grouping, setGrouping] = useState([])
-  const [defaultColumnWidths] = useState([
-    { columnName: 'no', width: 180 },
-    { columnName: 'pegId', width: 180 },
-    { columnName: 'pegAuid', width: 180 },
-    { columnName: 'pegNoAkaun', width: 180 },
-    { columnName: 'pegNoRumah', width: 180 },
-    { columnName: 'pegRjkFail', width: 180 },
-    { columnName: 'pegRjkMmk', width: 180 }
-  ])
 
   const url = `${endpoint}/hartapegangan?page=${currentPage + 1}&limit=${pageSize}`
   const { data: response, error } = useSWR(url)
@@ -116,12 +117,18 @@ const PeganganTable = ({ currentPage, pageSize, total, set }) => {
         <TableColumnReordering
           defaultOrder={[
             'no',
-            'pegId',
-            'pegAuid',
+            // 'pegId',
             'pegNoAkaun',
+            // 'pegJln.pegJln.jlnKaw.kawMk.mkNama',
+            'mkNama',
+            // "pegJln.pegJln.jlnKaw.kawNama"
+            'kawNama',
             'pegNoRumah',
-            'pegRjkFail',
-            'pegRjkMmk'
+            // 'pegJln.jlnNama',
+            'jlnNama',
+            'pegNTahunB',
+            'pegKadarB',
+            'pegCukaiB'
           ]}
         />
         <TableHeaderRow />
